@@ -7,12 +7,16 @@ use suvinando\Invoice;
 
 class InvoiceController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
     * Busca a Fatura que está ativa e redireciona para o show.
     */
     public function index() {
-        $activeInvoice = Invoice::where('closed',0)->get();
-        return redirect('/invoice/' . $activeInvoice[0]->id);
+        $activeInvoice = Invoice::where('closed',0)->first();
+        return redirect('/invoice/' . $activeInvoice->id);
     }
 
     /**

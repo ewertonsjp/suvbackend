@@ -11,12 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/invoice', 'InvoiceController@index');
 Route::get('/invoice/{id}', 'InvoiceController@show');
+
+Route::get('/transaction/create', 'TransactionController@create');
+Route::post('/transaction', 'TransactionController@store');

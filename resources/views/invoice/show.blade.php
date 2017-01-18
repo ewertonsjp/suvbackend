@@ -1,7 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-  <h1>Fatura: {{$invoice->description}} - R$ {{$invoice->amount}} ({{$invoice->closed}})</h1>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <h1>Fatura: {{$invoice->description}} - R$ {{$invoice->amount}} ({{$invoice->closed}})</h1>
+    </div>
+    <div class="col-lg-6">
+      <h1>
+        <a href="/transaction/create">
+          <span class="glyphicon glyphicon-search"></span>
+        </a>
+      </h1>
+    </div>
+  </div>
+
   @if(empty($invoice->transactions()))
      <div class="alert alert-danger">
        Você não tem nenhuma transação cadastrada.
