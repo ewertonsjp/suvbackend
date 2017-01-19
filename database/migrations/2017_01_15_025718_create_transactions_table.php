@@ -14,7 +14,7 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description');
-            $table->decimal('amount', 5, 2);
+            $table->decimal('amount', 10, 2);
             $table->integer('invoice_id');
             $table->timestamps();
         });

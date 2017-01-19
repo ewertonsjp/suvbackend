@@ -27,4 +27,8 @@ class User extends Authenticatable {
     public function payments() {
       $this.hasMany('suvinando\Payment');
     }
+
+    public function family() {
+      return $this->belongsTo('suvinando\Family');
+    }
 }

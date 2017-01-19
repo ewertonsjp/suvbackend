@@ -11,15 +11,34 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
       Model::unguard();
+      $this->call('FamilyTableSeeder');
+      $this->call('UserTableSeeder');
       $this->call('InvoiceTableSeeder');
       $this->call('TransactionTableSeeder');
       $this->call('PaymentTableSeeder');
     }
 }
 
+class FamilyTableSeeder extends Seeder {
+  public function run() {
+    DB::insert('insert into families (description) values (?)', array('APT Mãos de Vaca'));
+  }
+}
+
+class UserTableSeeder extends Seeder {
+  public function run() {
+    DB::table('users')->insert([
+        'name' => 'ewertonsjp',
+        'email' => 'ewertonsjp@gmail.com',
+        'password' => bcrypt('123456'),
+        'family_id' => 1
+    ]);
+  }
+}
+
 class InvoiceTableSeeder extends Seeder {
   public function run() {
-    DB::insert('insert into invoices (description, amount) values (?,?)', array('Jan2017', 300.00));
+    DB::insert('insert into invoices (description, amount, family_id) values (?,?,?)', array('Jan2017', 300.00, 1));
   }
 }
 

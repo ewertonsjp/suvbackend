@@ -15,7 +15,11 @@ class Invoice extends Model {
       foreach ($this->transactions as $tx) {
         $this->amount += $tx->amount;
       }
-      $this->save();
+      $vlrUnit = $this->amount / sizeof($this->family->users);
+      foreach ($this->payments as $payment) {
+        $payment->amount = $vlrUnit;
+      }
+      $this->push();
     }
 
     public function transactions() {
@@ -24,6 +28,10 @@ class Invoice extends Model {
 
     public function payments() {
       return $this->hasMany('suvinando\Payment');
+    }
+
+    public function family() {
+      return $this->belongsTo('suvinando\Family');
     }
 
 }
