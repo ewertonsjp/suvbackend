@@ -33,6 +33,12 @@ class UserTableSeeder extends Seeder {
         'password' => bcrypt('123456'),
         'family_id' => 1
     ]);
+    DB::table('users')->insert([
+        'name' => 'enfermeiro gay',
+        'email' => 'enfermeiro@gmail.com',
+        'password' => bcrypt('123456'),
+        'family_id' => 1
+    ]);
   }
 }
 
