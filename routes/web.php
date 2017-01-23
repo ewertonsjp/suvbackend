@@ -20,3 +20,7 @@ Route::get('/invoice/{id}', 'InvoiceController@show');
 
 Route::get('/transaction/create', 'TransactionController@create');
 Route::post('/transaction', 'TransactionController@store');
+
+Route::get('/family', 'FamilyController@index');
+Route::get('/family/create', 'FamilyController@create');
+Route::post('/family', 'FamilyController@store');
