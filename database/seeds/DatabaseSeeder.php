@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder {
 
 class FamilyTableSeeder extends Seeder {
   public function run() {
-    DB::insert('insert into families (name, description) values (?,?)', array('APT Mãos de Vaca','APT dos mãos de VACA de PLT'));
+    DB::insert('insert into families (name, description, code) values (?,?,?)', array('APT Mãos de Vaca','APT dos mãos de VACA de PLT',9999));
   }
 }
 

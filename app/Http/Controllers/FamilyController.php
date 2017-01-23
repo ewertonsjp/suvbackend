@@ -4,6 +4,7 @@ namespace suvinando\Http\Controllers;
 
 use suvinando\Family;
 use Request;
+use Illuminate\Support\Facades\Auth;
 
 class FamilyController extends Controller {
 
@@ -16,7 +17,13 @@ class FamilyController extends Controller {
     }
 
     public function store() {
-      Family::create(Request::all());
+      $params = Request::all();
+      $params['code'] = rand();
+
+      $family = Family::create($params);
+      $family->users->push(Auth::user());
+      $family->save();
+
       return redirect('/family')->with('message', "Transação cadastrada com sucesso!");
     }
 

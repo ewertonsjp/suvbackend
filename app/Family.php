@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Family extends Model {
 
-  protected $fillable = array('description','name');
+  protected $fillable = array('description','name','code');
   protected $guarded = ['id'];
 
   public function invoices() {
