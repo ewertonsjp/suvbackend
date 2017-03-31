@@ -2,7 +2,7 @@
 
 namespace suvinando\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use suvinando\Invoice;
 
 class InvoiceController extends Controller {
@@ -29,12 +29,15 @@ class InvoiceController extends Controller {
         if (empty($invoice)) {
           return "Não foi encontrado nenhuma Fatura com esse ID!";
         }
-
         return view('invoice.show') -> with('invoice',$invoice);
     }
 
     public function listAsJson() {
-      $response = response()->json(Invoice::with('payments','transactions')->where('closed',0)->first());
+      $response = response()->json(
+        Invoice::with('payments','transactions')
+        ->where('family_id',Request::input('familyId',0))
+        ->where('closed',0)
+        ->first());
       $response->header('Content-Type', 'application/json');
       $response->header('charset', 'utf-8');
       return $response;
