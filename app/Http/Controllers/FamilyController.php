@@ -27,4 +27,11 @@ class FamilyController extends Controller {
       return redirect('/family')->with('message', "Transação cadastrada com sucesso!");
     }
 
+    public function listAsJson() {
+      $response = response()->json(Family::all());
+      $response->header('Content-Type', 'application/json');
+      $response->header('charset', 'utf-8');
+      return $response;
+    }
+
 }

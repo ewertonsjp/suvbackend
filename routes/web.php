@@ -16,7 +16,8 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/invoice', 'InvoiceController@index');
-Route::get('/invoice/{id}', 'InvoiceController@show');
+Route::get('/invoice/{id}', 'InvoiceController@show') -> where('id', '[0-9]+');
+Route::get('/invoice/listAsJson', 'InvoiceController@listAsJson');
 
 Route::get('/transaction/create', 'TransactionController@create');
 Route::post('/transaction', 'TransactionController@store');
@@ -24,3 +25,4 @@ Route::post('/transaction', 'TransactionController@store');
 Route::get('/family', 'FamilyController@index');
 Route::get('/family/create', 'FamilyController@create');
 Route::post('/family', 'FamilyController@store');
+Route::get('/family/listAsJson', 'FamilyController@listAsJson');

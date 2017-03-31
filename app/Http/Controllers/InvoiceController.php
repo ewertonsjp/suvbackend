@@ -8,7 +8,7 @@ use suvinando\Invoice;
 class InvoiceController extends Controller {
 
     public function __construct() {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -31,6 +31,13 @@ class InvoiceController extends Controller {
         }
 
         return view('invoice.show') -> with('invoice',$invoice);
+    }
+
+    public function listAsJson() {
+      $response = response()->json(Invoice::with('payments','transactions')->where('closed',0)->first());
+      $response->header('Content-Type', 'application/json');
+      $response->header('charset', 'utf-8');
+      return $response;
     }
 
 }
