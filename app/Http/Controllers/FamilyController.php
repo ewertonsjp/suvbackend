@@ -28,6 +28,7 @@ class FamilyController extends Controller {
     }
 
     public function listAsJson() {
+      //$families = DB::table('families')->join('users', 'users._id', '=', Request::input('userId','0'));
       $response = response()->json(Family::all());
       $response->header('Content-Type', 'application/json');
       $response->header('charset', 'utf-8');

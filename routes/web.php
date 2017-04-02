@@ -20,7 +20,8 @@ Route::get('/invoice/{id}', 'InvoiceController@show') -> where('id', '[0-9]+');
 Route::get('/invoice/listAsJson', 'InvoiceController@listAsJson');
 
 Route::get('/transaction/create', 'TransactionController@create');
-Route::post('/transaction', 'TransactionController@store');
+Route::post('/transaction', 'TransactionController@add');
+// Route::post('/transaction/add', 'TransactionController@add');
 
 Route::get('/family', 'FamilyController@index');
 Route::get('/family/create', 'FamilyController@create');
