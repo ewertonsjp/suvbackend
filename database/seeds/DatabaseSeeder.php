@@ -34,7 +34,7 @@ class UserTableSeeder extends Seeder {
         'family_id' => 1
     ]);
     DB::table('users')->insert([
-        'name' => 'enfermeiro gay',
+        'name' => 'Enfa',
         'email' => 'enfermeiro@gmail.com',
         'password' => bcrypt('123456'),
         'family_id' => 1
@@ -59,6 +59,7 @@ class TransactionTableSeeder extends Seeder {
 
 class PaymentTableSeeder extends Seeder {
   public function run() {
-    DB::insert('insert into payments (amount, user_id, invoice_id) values (?,?,?)', array(300.00,1,1));
+    DB::insert('insert into payments (amount, user_id, invoice_id) values (?,?,?)', array(150.00,1,1));
+    DB::insert('insert into payments (amount, user_id, invoice_id) values (?,?,?)', array(150.00,2,1));
   }
 }
