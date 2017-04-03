@@ -4,6 +4,8 @@ namespace suvinando\Http\Controllers;
 
 use Request;
 use suvinando\Invoice;
+use suvinando\Family;
+use suvinando\Payment;
 
 class InvoiceController extends Controller {
 
@@ -33,11 +35,45 @@ class InvoiceController extends Controller {
     }
 
     public function listAsJson() {
-      $response = response()->json(
-        Invoice::with('payments','transactions')
-        ->where('family_id',Request::input('familyId',0))
+      $familyId = Request::input('familyId',0);
+      $invoice = Invoice::with('payments','transactions')
+        ->where('family_id',$familyId)
         ->where('closed',0)
-        ->first());
+        ->first();
+
+      if (!$invoice) {
+        $invoice = new Invoice();
+        $invoice['description'] = 'Invoice' . Invoice::max('id');
+        $invoice['family_id'] = $familyId;
+        $invoice['amount'] = 0;
+        $invoice->save();
+
+        $family = Family::find($familyId);
+        foreach ($family->users as $user) {
+          $payment = new Payment();
+          $payment->amount = 0;
+
+          $payment->user_id = $user->id;
+          $payment->invoice_id = $invoice->id;
+
+          $invoice->payments->push($payment);
+        }
+
+        $invoice->push();
+      }
+
+      $response = response()->json($invoice);
+      $response->header('Content-Type', 'application/json');
+      $response->header('charset', 'utf-8');
+      return $response;
+    }
+
+    public function close() {
+      $invoice = Invoice::find(Request::input('invoiceId',0));
+      $invoice['closed'] = true;
+      $invoice->save();
+
+      $response = response()->json($invoice);
       $response->header('Content-Type', 'application/json');
       $response->header('charset', 'utf-8');
       return $response;
